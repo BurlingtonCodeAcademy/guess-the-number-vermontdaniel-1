@@ -36,15 +36,18 @@ async function start() {
   let secretNumber = await ask("What is your secret number?\nI won't peek, I promise...\n");
   // computerGuess does not work as intended, filled in as 1, 100
   let computerGuess = randomInteger(1, 100);
+  let guessQuestion = await ask(`Is your number ${computerGuess} `);
 
-  while (computerGuess !== secretNumber) {
-    let guessQuestion = await ask(`Is your number ${computerGuess} `);
-  }
-  if (guessQuestion === correctAnswer) {
+
+  while (guessQuestion !== sanitizeString(correctAnswer))
+
+  if (guessQuestion === sanitizeString(correctAnswer)) {
     console.log("YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?");
-  } else if (guessQuestion === wrongAnswer) {
+    
+  } else if (guessQuestion === sanitizeString(wrongAnswer)) {
     let highOrLow = await ask("Is it higher or lower? ");
-    if (highOrLow === highAnswer) {
+
+    if (highOrLow === sanitizeString(highAnswer)) {
       console.log("You need to guess higher.");
     } else {
       console.log("You need to guess lower.");
