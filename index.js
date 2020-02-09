@@ -20,8 +20,7 @@ function sanitizeString(string) {
   return string;
 } // Creates a random integer between two numbers
 function randomInteger(min, max) {
-  let range = max - min + 1;
-  return min + Math.floor(Math.random() * range);
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 start();
@@ -32,26 +31,29 @@ async function start() {
   );
   // Game setup
   let setRangeMin = await ask("What is the minimum number I can guess to? ");
+  setRangeMin = +setRangeMin;
   let setRangeMax = await ask("What is the maximum number I can guess to? ");
+  setRangeMax = +setRangeMax;
   let secretNumber = await ask("What is your secret number?\nI won't peek, I promise...\n");
-  // computerGuess does not work as intended, filled in as 1, 100
-  let computerGuess = randomInteger(1, 100);
-  let guessQuestion = await ask(`Is your number ${computerGuess} `);
-
+  let computerGuess = randomInteger(setRangeMin, setRangeMax);
+  let guessQuestion = await ask(`Is your number ${computerGuess}? `);
+  guessQuestion = +guessQuestion;
 
   while (guessQuestion !== sanitizeString(correctAnswer))
+    if (guessQuestion === sanitizeString(correctAnswer)) {
+      console.log("YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?");
+      process.exit();
+    } else if (guessQuestion === sanitizeString(wrongAnswer)) {
+      let highOrLow = await ask("Is it higher or lower? ");
 
-  if (guessQuestion === sanitizeString(correctAnswer)) {
-    console.log("YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?");
-    
-  } else if (guessQuestion === sanitizeString(wrongAnswer)) {
-    let highOrLow = await ask("Is it higher or lower? ");
-
-    if (highOrLow === sanitizeString(highAnswer)) {
-      console.log("You need to guess higher.");
-    } else {
-      console.log("You need to guess lower.");
+      if (highOrLow === sanitizeString(highAnswer)) {
+        console.log("You need to guess higher.");
+        setRangeMin = guessQuestion;
+        console.log(setRangeMin);
+        guessQuestion;
+      } else {
+        console.log("You need to guess lower.");
+      }
     }
-  }
   process.exit();
 }
