@@ -34,26 +34,25 @@ async function start() {
   setRangeMin = +setRangeMin;
   let setRangeMax = await ask("What is the maximum number I can guess to? ");
   setRangeMax = +setRangeMax;
-  let secretNumber = await ask("What is your secret number?\nI won't peek, I promise...\n");
+  let secretNumber = await ask("What is your secret number? ");
   let computerGuess = randomInteger(setRangeMin, setRangeMax);
   let guessQuestion = await ask(`Is your number ${computerGuess}? `);
-  guessQuestion = +guessQuestion;
 
   while (guessQuestion !== sanitizeString(correctAnswer))
-    if (guessQuestion === sanitizeString(correctAnswer)) {
-      console.log("YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?");
-      process.exit();
-    } else if (guessQuestion === sanitizeString(wrongAnswer)) {
-      let highOrLow = await ask("Is it higher or lower? ");
 
-      if (highOrLow === sanitizeString(highAnswer)) {
-        console.log("You need to guess higher.");
-        setRangeMin = guessQuestion;
-        console.log(setRangeMin);
-        guessQuestion;
-      } else {
-        console.log("You need to guess lower.");
-      }
+  if (guessQuestion === sanitizeString(wrongAnswer)) {
+    let highOrLow = await ask("Is it higher or lower? ");
+
+    if (highOrLow === sanitizeString(highAnswer)) {
+      console.log("You need to guess higher.");
+      setRangeMin = computerGuess;
+      guessQuestion = await ask(`Is your number ${computerGuess}? `);
+    } else {
+      console.log("You need to guess lower.");
+      setRangeMax = computerGuess;
+      guessQuestion = await ask(`Is your number ${computerGuess}? `);
     }
+  }  
+  console.log("YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?");
   process.exit();
 }
