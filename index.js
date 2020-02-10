@@ -37,7 +37,7 @@ async function start() {
   let computerGuess = randomInteger(setRangeMin, setRangeMax);
   let guessQuestion = null;
 
-  while (guessQuestion !== correctAnswer || computerGuess === secretNumber) {
+  while (guessQuestion !== correctAnswer) {
     guessQuestion = await ask(`Is your number ${computerGuess}? `);
 
     if (guessQuestion === sanitizeString(wrongAnswer)) {
