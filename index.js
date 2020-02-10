@@ -4,8 +4,8 @@ const rl = readline.createInterface(process.stdin, process.stdout);
 const correctAnswer = "yes" || "y" || "ys";
 const wrongAnswer = "no" || "n";
 const highAnswer = "higher" || "h" || "high";
-const playComputerGuessing = 'computer';
-const playPlayerGuessing = 'player';
+const playComputerGuessing = "computer";
+const playPlayerGuessing = "player";
 
 // Function list -----------------------------------
 function ask(questionText) {
@@ -21,24 +21,28 @@ function sanitizeString(string) {
   return string;
 } // Creates a random integer between two numbers
 function randomInteger(min, max) {
-  return Math.floor((max - min) / 2 + min)
+  return Math.floor((max - min) / 2 + min);
 }
 
+// Starts the game
 chooseGameType();
 
-async function chooseGameType () {
-console.log('\nPlease type either computer, to have the computer guess the number \nor player for the player to guess the number.\n');
-let chooseType = await ask('Would you like to guess the number or have me (computer) guess the number? ')
+//Sets up if computer guesses or player guesses
+async function chooseGameType() {
+  console.log(
+    "\nPlease type either computer, to have the computer guess the number \nor player for the player to guess the number.\n"
+  );
+  let chooseType = await ask(
+    "Would you like to guess the number or have me (computer) guess the number? "
+  );
   if (chooseType === playComputerGuessing) {
-    start();
+    computerStart();
   } else if (chooseType === playPlayerGuessing) {
-    reverseStart();
+    playerStart();
   }
 }
-
-//start();
-
-async function start() {
+// Computer guesses your number
+async function computerStart() {
   console.log(
     "\nLet's play a game where you (human) make up a number\nand I (computer) try to guess it.\n"
   );
@@ -73,10 +77,8 @@ async function start() {
   console.log("YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?");
   process.exit();
 }
-
-//reverseStart();
-
-async function reverseStart() {
+// Player guesses the computers number
+async function playerStart() {
   console.log(
     "\nLet's play a game where I (computer) make up a number\nand you (human) try to guess it.\n"
   );
