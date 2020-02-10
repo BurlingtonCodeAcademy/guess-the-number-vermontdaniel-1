@@ -36,7 +36,6 @@ async function start() {
   setRangeMax = +setRangeMax;
   console.log("I (computer) will now guess a number between that range!");
   const computerSecretNumber = randomInteger(setRangeMin, setRangeMax);
-  console.log(computerSecretNumber);
   let playerGuess = null;
 
   while (playerGuess !== computerSecretNumber) {
