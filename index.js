@@ -37,9 +37,9 @@ async function start() {
   let computerGuess = randomInteger(setRangeMin, setRangeMax);
   let guessQuestion = null;
 
-  while (guessQuestion !== correctAnswer) {
+  while (guessQuestion !== correctAnswer || computerGuess === secretNumber) {
     guessQuestion = await ask(`Is your number ${computerGuess}? `);
-    
+
     if (guessQuestion === sanitizeString(wrongAnswer)) {
       let highOrLow = await ask("Is it higher or lower? ");
       // Start HighOrLow if loop branch
