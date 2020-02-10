@@ -4,6 +4,8 @@ const rl = readline.createInterface(process.stdin, process.stdout);
 const correctAnswer = "yes" || "y" || "ys";
 const wrongAnswer = "no" || "n";
 const highAnswer = "higher" || "h" || "high";
+const playComputerGuessing = 'computer';
+const playPlayerGuessing = 'player'
 
 // Function list -----------------------------------
 function ask(questionText) {
@@ -22,7 +24,20 @@ function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-start();
+chooseGameType();
+
+async function chooseGameType () {
+console.log('\nPlease type either computer, to have the computer guess the number \nor player for the player to guess the number.\n');
+
+let chooseType = await ask('Would you like to guess the number or have me (computer) guess the number? ')
+  if (chooseType === playComputerGuessing) {
+    start();
+  } else if (chooseType === playPlayerGuessing) {
+    reverseStart();
+  }
+}
+
+//start();
 
 async function start() {
   console.log(
@@ -58,4 +73,38 @@ async function start() {
 
   console.log("YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?");
   process.exit();
+}
+
+//reverseStart();
+
+async function reverseStart() {
+  console.log(
+    "\nLet's play a game where I (computer) make up a number\nand you (human) try to guess it.\n"
+  );
+
+  //Game setup
+  let setRangeMin = await ask(
+    "What is the minimum number you want to guess to? "
+  );
+  setRangeMin = +setRangeMin;
+  let setRangeMax = await ask(
+    "What is the maximum number you want to guess to? "
+  );
+  setRangeMax = +setRangeMax;
+  console.log("I (computer) will now guess a number between that range!");
+  const computerSecretNumber = randomInteger(setRangeMin, setRangeMax);
+  let playerGuess = null;
+
+  while (playerGuess !== computerSecretNumber) {
+    playerGuess = await ask(`Is your number: `);
+
+    if (playerGuess < computerSecretNumber) {
+      console.log("You need to guess higher!");
+    } else if (playerGuess > computerSecretNumber) {
+      console.log("You need to guess lower!");
+    } else {
+      console.log("Yes that is my number!");
+      process.exit();
+    }
+  }
 }
