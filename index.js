@@ -1,11 +1,11 @@
 const readline = require("readline");
 const rl = readline.createInterface(process.stdin, process.stdout);
-// Valid string inputs
-const correctAnswer = "yes" || "y";
+// Valid string inputs -----------------------------
+const correctAnswer = "yes" || "y" || "ys";
 const wrongAnswer = "no" || "n";
-const highAnswer = "higher" || "h";
+const highAnswer = "higher" || "h" || "high";
 
-// Functions --------------------------------
+// Function list -----------------------------------
 function ask(questionText) {
   return new Promise((resolve, reject) => {
     rl.question(questionText, resolve);
@@ -55,6 +55,7 @@ async function start() {
       // End HighOrLow if loop branch
     }
   }
+
   console.log("YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?");
   process.exit();
 }
