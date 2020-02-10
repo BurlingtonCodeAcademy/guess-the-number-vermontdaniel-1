@@ -30,9 +30,9 @@ async function start() {
   );
   // Game setup
   let setRangeMin = await ask("What is the minimum number I can guess to? ");
-  setRangeMin = +setRangeMin;
+  setRangeMin = +setRangeMin; // changes setRangeMin to a number
   let setRangeMax = await ask("What is the maximum number I can guess to? ");
-  setRangeMax = +setRangeMax;
+  setRangeMax = +setRangeMax; // changes setRangeMax to a number
   const secretNumber = await ask("What is your secret number? ");
   let computerGuess = randomInteger(setRangeMin, setRangeMax);
   let guessQuestion = null;
