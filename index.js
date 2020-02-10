@@ -5,7 +5,7 @@ const correctAnswer = "yes" || "y" || "ys";
 const wrongAnswer = "no" || "n";
 const highAnswer = "higher" || "h" || "high";
 const playComputerGuessing = 'computer';
-const playPlayerGuessing = 'player'
+const playPlayerGuessing = 'player';
 
 // Function list -----------------------------------
 function ask(questionText) {
@@ -21,14 +21,13 @@ function sanitizeString(string) {
   return string;
 } // Creates a random integer between two numbers
 function randomInteger(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor((max - min) / 2 + min)
 }
 
 chooseGameType();
 
 async function chooseGameType () {
 console.log('\nPlease type either computer, to have the computer guess the number \nor player for the player to guess the number.\n');
-
 let chooseType = await ask('Would you like to guess the number or have me (computer) guess the number? ')
   if (chooseType === playComputerGuessing) {
     start();
@@ -60,11 +59,11 @@ async function start() {
       // Start HighOrLow if loop branch
       if (highOrLow === sanitizeString(highAnswer)) {
         console.log("Looks like I need to guess higher.");
-        setRangeMin = computerGuess;
+        setRangeMin = computerGuess + 1;
         computerGuess = randomInteger(setRangeMin, setRangeMax);
       } else {
         console.log("Looks like I need to guess lower.");
-        setRangeMax = computerGuess;
+        setRangeMax = computerGuess - 1;
         computerGuess = randomInteger(setRangeMin, setRangeMax);
       }
       // End HighOrLow if loop branch
