@@ -96,17 +96,17 @@ async function computerStart() {
 
       // Start HighOrLow if loop branch
       if (highAnswer.includes(sanitizeString(highOrLow))) {
+
         console.log('Looks like I need to guess higher.');
-
         setRangeMin = computerGuess + 1;
-
         computerGuess = randomInteger(setRangeMin, setRangeMax);
+
       } else if (lowAnswer.includes(sanitizeString(highOrLow))) {
+
         console.log('Looks like I need to guess lower.');
-
         setRangeMax = computerGuess - 1;
-
         computerGuess = randomInteger(setRangeMin, setRangeMax);
+
       } else {
         console.log('You will need to input higher or lower.');
       }
@@ -139,8 +139,10 @@ async function playerStart() {
 
     if (playerGuess < computerSecretNumber) {
       console.log('You need to guess higher!');
+
     } else if (playerGuess > computerSecretNumber) {
       console.log('You need to guess lower!');
+      
     } else {
       console.log('YES! ARE YOU A PYSCHIC? HOW DID YOU GUESS MY NUMBER?');
       process.exit();
