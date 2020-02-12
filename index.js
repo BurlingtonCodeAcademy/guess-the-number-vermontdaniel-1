@@ -1,7 +1,7 @@
 const readline = require('readline');
 const rl = readline.createInterface(process.stdin, process.stdout);
 
-// Valid string inputs ------------------------------------------------------
+// Valid string inputs ---------------------------------------------
 const correctAnswer = ['yes', 'y', 'ys'];
 const wrongAnswer = ['no', 'n'];
 const highAnswer = ['higher', 'h', 'high'];
@@ -9,10 +9,11 @@ const lowAnswer = ['lower', 'l', 'low'];
 const playComputerGuessing = ['computer', 'comp', 'c'];
 const playPlayerGuessing = ['player', 'play', 'p'];
 const validGameTypeInput = [...playComputerGuessing, ...playPlayerGuessing];
-let setRangeMax = process.argv.slice(3);
-let setRangeMin = process.argv.slice(2, 3);
+let setRangeMax = process.argv[3] || 100;
+let setRangeMin = process.argv[2] || 1;
 
-// Function list ------------------------------------------------------------
+
+// Function list ---------------------------------------------------
 
 // readline function
 function ask(questionText) {
@@ -68,13 +69,11 @@ async function chooseGameType() {
   }
 }
 
-// note: use array indexing to see if ^^^ that will work
-
-// Computer guesses your number ---------------------------------------------
+// Computer guesses your number ------------------------------------
 async function computerStart() {
   console.log("\nLet's play a game where you (human) make up a number\nand I (computer) try to guess it.\n");
 
-  // Game setup -------------------------------------------------------------
+  // Game setup ----------------------------------------------------
   setRangeMin = +setRangeMin; // changes from object to a number
   setRangeMax = +setRangeMax;
   let guessCounter = 0;
@@ -87,7 +86,7 @@ async function computerStart() {
   // Sets up guessQuestion to include correct answer
   let guessQuestion = '';
 
-  // Game logic -------------------------------------------------------------
+  // Game logic ----------------------------------------------------
   while (!correctAnswer.includes(sanitizeString(guessQuestion))) {
     guessQuestion = await ask(`Is your number ${computerGuess}? `);
     guessCounter += 1;
@@ -119,11 +118,11 @@ async function computerStart() {
   process.exit();
 }
 
-// Player guesses the computers number --------------------------------------
+// Player guesses the computers number -----------------------------
 async function playerStart() {
   console.log("\nLet's play a game where I (computer) make up a number\nand you (human) try to guess it.\n");
 
-  // Game setup -------------------------------------------------------------
+  // Game setup ----------------------------------------------------
   setRangeMin = +setRangeMin; // Changes from object to number
   setRangeMax = +setRangeMax;
 
@@ -134,7 +133,7 @@ async function playerStart() {
 
   let playerGuess = null;
 
-  // Game logic -------------------------------------------------------------
+  // Game logic ----------------------------------------------------
   while (playerGuess !== computerSecretNumber) {
     playerGuess = await ask(`Is your number: `);
 
